@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  dev:
+    build:
+      context: ..
+      dockerfile: Dockerfile/Dockerfile
+    image: retrieval-based-voice-conversion-webui:20230428
+    container_name: retrieval-based-voice-conversion-webui
+    volumes:
+      - ../datasets:/datasets
+      - ../models:/Retrieval-based-Voice-Conversion-WebUI/weights
+      - ../input:/input
+    working_dir: /Retrieval-based-Voice-Conversion-WebUI
+    tty: true
+    ports:
+      - "7865:7865"
+    shm_size: '8gb'
+    entrypoint: sh -c "python infer-web.py"
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
