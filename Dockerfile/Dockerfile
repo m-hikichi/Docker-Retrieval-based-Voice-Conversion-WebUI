@@ -5,7 +5,7 @@ RUN pip install --upgrade pip
 RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 
 # リポジトリをクローン
-RUN git clone https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI.git -b 20230428updated
+RUN git clone https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI.git -b updated0528v2
 WORKDIR /Retrieval-based-Voice-Conversion-WebUI
 RUN mkdir -p pretrained uvr5_weights
 
