@@ -62,20 +62,20 @@
     - `false`に設定するとピッチガイダンスが無効になります．パソコンの負荷が低くなりますが，音声変換精度がやや劣ります．
     - 学習音声ファイルが楽曲の場合は，必ず`true`にしてください．
 
-6. `Model architecture version`でRVCの事前学習モデルのバージョンを指定します．今回は`v1`を選択します．
+6. `Model architecture version`でRVCの事前学習モデルのバージョンを指定します．
 
-7. `Threads of CPU, for pitch extraction and dataset processing`でピッチ抽出とデータセット処理に使用するCPUスレッドの数を指定します．
+7. `Number of CPU processes used for pitch extraction and data processing`でピッチ抽出とデータセット処理に使用するCPUスレッドの数を指定します．
 
-8. `Path to training folder`で学習させるデータセットフォルダのパスを指定します．今回は`/datasets`を入力します．
+8. `Enter the path of the training folder`で学習させるデータセットフォルダのパスを指定します．今回は`/datasets`を入力します．
 
-9. `Select pitch extraction algorithm`でピッチ抽出アルゴリズムの設定を行います．以下の3種類から選べます．<br>
+9. `Select the pitch extraction algorithm`でピッチ抽出アルゴリズムの設定を行います．以下の3種類から選べます．<br>
     - `pm`：歌声の処理を高速化するアルゴリズムです．
     - `dio`：高品質の音声を処理するアルゴリズムです．
     - `harvest`：最高の品質で処理するアルゴリズムですが，最も処理が遅くなります．
 
-10. `Save frequency`，`Total training epochs (total_epoch)`，`batch_size`に適切な値を設定します．これらは学習の進捗や結果に影響します．
+10. `Save frequency`，`Total training epochs (total_epoch)`，`Batch size per GPU`に適切な値を設定します．これらは学習の進捗や結果に影響します．
 
-11. `One-click training.`をクリックして学習を開始します．
+11. `One-click training`をクリックして学習を開始します．
 
 ## 音声変換モデルの推論
 1.  変換したい音声ファイルを`input`ディレクトリに配置します．
@@ -86,17 +86,17 @@
 
 4. `Inferencing voice`から使用したい学習済みの音声変換モデルを選択します．
 
-5. `transpose(Input must be integer, represents number of semitones. Example: octave sharp: 12;octave flat: -12)`で音声の高さ（ピッチ）を調整します．整数値で入力してください．12は1オクターブ上げ，-12は1オクターブ下げを意味します．男性から女性に変換する場合は`12`，女性から男性に変換する場合は`-12`を推奨しています．音域が行き過ぎて声が歪んでしまう場合は，ご自身で適切な音域に調整してください．
+5. `Transpose (integer, number of semitones, raise by an octave: 12, lower by an octave: -12)`で音声の高さ（ピッチ）を調整します．整数値で入力してください．12は1オクターブ上げ，-12は1オクターブ下げを意味します．男性から女性に変換する場合は`12`，女性から男性に変換する場合は`-12`を推奨しています．音域が行き過ぎて声が歪んでしまう場合は，ご自身で適切な音域に調整してください．
 
 6. `Enter the path of the audio file to be processed`に変換したい音声ファイルのパスを入力します．例えば，`input`ディレクトリに`test.wav`という名前の音声ファイルを配置した場合は，`/input/test.wav`と入力してください．
 
-7. `Select pitch extraction algorithm`でピッチ抽出アルゴリズムの設定を行います．以下の2種類から選べます．
+7. `Select the pitch extraction algorithm`でピッチ抽出アルゴリズムの設定を行います．以下の3種類から選べます．
     - `pm`：抽出は最速だが，音声の品質は低い．
     - `harvest`：品質は向上するが，抽出が最も遅い．
-    - ~~`crepe`：品質は最高だが，GPUが必要．~~現在使用できません
+    - `crepe`：品質は最高だが，GPUが必要．
 
-8. `Path to the '.index' file in 'logs' directory is auto detected. Pick the matching file from the dropdown`で学習済みの音声変換モデルに対応する`.index`ファイルをドロップダウンから選択します．例えば，学習の際に「Experiment name」（出力される学習モデルの名前）を「ichiro」にした場合，`logs/ichiro/added_~.index`を選ぶようにします．
+8. `Auto-detect index path and select from the dropdown`で学習済みの音声変換モデルに対応する`.index`ファイルをドロップダウンから選択します．例えば，学習の際に「Experiment name」（出力される学習モデルの名前）を「ichiro」にした場合，`logs/ichiro/added_~.index`を選ぶようにします．
 
-9. `Resample the audio in post-processing to a different sample rate`にて，後処理で音声を異なるサンプルレートにリサンプリングします．設定を`0`にした場合は，リサンプリングは実行されません．
+9. `Resample the output audio in post-processing to the final sample rate`にて，後処理で音声を異なるサンプルレートにリサンプリングします．設定を`0`にした場合は，リサンプリングは実行されません．
 
-10. `Conversion`をクリックすると，推論が実行され，変換後音声を再生することが可能になります．
+10. `Convert`をクリックすると，推論が実行され，変換後音声を再生することが可能になります．
