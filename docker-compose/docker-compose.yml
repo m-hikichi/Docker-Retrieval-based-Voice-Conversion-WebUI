@@ -5,7 +5,7 @@ services:
     build:
       context: ..
       dockerfile: Dockerfile/Dockerfile
-    image: retrieval-based-voice-conversion-webui:20230528
+    image: retrieval-based-voice-conversion-webui:20230618
     container_name: retrieval-based-voice-conversion-webui
     volumes:
       - ../datasets:/datasets
