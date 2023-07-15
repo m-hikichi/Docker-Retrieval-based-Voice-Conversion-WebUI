@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  dev:
+  rvc:
     build:
-      context: ..
-      dockerfile: Dockerfile/Dockerfile
+      context: ../Dockerfile_RVC
+      dockerfile: Dockerfile
     image: retrieval-based-voice-conversion-webui:20230618
     container_name: retrieval-based-voice-conversion-webui
     volumes:
@@ -17,6 +17,26 @@ services:
       - "7865:7865"
     shm_size: '8gb'
     entrypoint: sh -c "python infer-web.py"
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  vc:
+    build:
+      context: ../Dockerfile_VC
+      dockerfile: Dockerfile
+    image: voice-changer:1.5.3.9
+    container_name: voice-changer
+    working_dir: /voice-changer
+    tty: true
+    ports:
+      - "18888:18888"
+    entrypoint: sh -c "cd /voice-changer/server && python3 MMVCServerSIO.py -p 18888 --content_vec_500 pretrain/checkpoint_best_legacy_500.pt --content_vec_500_onnx pretrain/content_vec_500.onnx --content_vec_500_onnx_on true --hubert_base pretrain/hubert_base.pt --hubert_base_jp pretrain/rinna_hubert_base_jp.pt --hubert_soft pretrain/hubert/hubert-soft-0d54a1f4.pt --nsf_hifigan pretrain/nsf_hifigan/model --crepe_onnx_full pretrain/crepe_onnx_full.onnx --crepe_onnx_tiny pretrain/crepe_onnx_tiny.onnx --model_dir model_dir --samples samples.json"
 
     deploy:
       resources:
