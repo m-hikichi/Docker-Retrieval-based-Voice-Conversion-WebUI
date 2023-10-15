@@ -9,7 +9,7 @@ services:
     container_name: retrieval-based-voice-conversion-webui
     volumes:
       - ../datasets:/datasets
-      - ../models:/Retrieval-based-Voice-Conversion-WebUI/weights
+      - ../models:/Retrieval-based-Voice-Conversion-WebUI/assets/weights
       - ../input:/input
     working_dir: /Retrieval-based-Voice-Conversion-WebUI
     tty: true
